@@ -10,12 +10,13 @@ register_activation_hook( __FILE__, 'my_activation' );
 function my_activation() {
 	wp_clear_scheduled_hook( 'my_hourly_event' );
 	wp_schedule_event( time(), 'hourly', 'my_hourly_event' );
+
 }
 
-if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
+
+
 	add_action( 'my_hourly_event', 'do_this_hourly' );
 	function do_this_hourly() {
-
 
 		$today    = getdate();
 		$args     = array(
@@ -130,7 +131,7 @@ if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
 
 		}
 	}
-}
+
 
 register_deactivation_hook( __FILE__, 'my_deactivation' );
 function my_deactivation() {
